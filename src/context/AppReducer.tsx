@@ -1,6 +1,6 @@
 import { Transaction } from "./GlobalState";
 
-export default (state: any, action: any) => {
+const reducer = (state: any, action: any) => {
   switch (action.type) {
     case "DELETE_TRANSACTION":
       return {
@@ -18,3 +18,5 @@ export default (state: any, action: any) => {
       return state;
   }
 };
+
+export default reducer;
