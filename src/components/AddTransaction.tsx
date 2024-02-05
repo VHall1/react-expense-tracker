@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import * as React from "react";
 import { v4 } from "uuid";
+import { useGlobalContext } from "../context/GlobalState";
 
 export const AddTransaction = () => {
-  const { addTransaction } = useContext(GlobalContext);
+  const { addTransaction } = useGlobalContext();
 
-  const [text, setText] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
+  const [text, setText] = React.useState<string>("");
+  const [amount, setAmount] = React.useState<string>("");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ export const AddTransaction = () => {
 
     setText("");
     setAmount("");
-    addTransaction!(newTransaction);
+    addTransaction(newTransaction);
   };
 
   return (
