@@ -15,7 +15,7 @@ export const Transaction: React.FC<TransactionProps> = ({
     <li className={amount > 0 ? "plus" : "minus"}>
       {text}
       <span>${Math.abs(amount)}</span>
-      <button onClick={() => deleteTransaction!(id)} className="delete-btn">
+      <button onClick={() => deleteTransaction(id)} className="delete-btn">
         x
       </button>
     </li>
