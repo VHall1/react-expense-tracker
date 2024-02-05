@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { PropsWithChildren, createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 
 export interface Transaction {
@@ -17,7 +17,7 @@ export const GlobalContext = createContext<{
   addTransaction?: (transaction: Transaction) => void;
 }>(initialState);
 
-export const GlobalProvider: React.FC = ({ children }) => {
+export const GlobalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   const deleteTransaction = (id: string) => {
