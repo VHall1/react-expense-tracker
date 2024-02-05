@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import {
-  GlobalContext,
   Transaction as TransactionProps,
+  useGlobalContext,
 } from "../context/GlobalState";
 
 export const Transaction: React.FC<TransactionProps> = ({
@@ -9,13 +9,13 @@ export const Transaction: React.FC<TransactionProps> = ({
   text,
   id,
 }) => {
-  const { deleteTransaction } = useContext(GlobalContext);
+  const { deleteTransaction } = useGlobalContext();
 
   return (
     <li className={amount > 0 ? "plus" : "minus"}>
       {text}
       <span>${Math.abs(amount)}</span>
-      <button onClick={() => deleteTransaction!(id)} className="delete-btn">
+      <button onClick={() => deleteTransaction(id)} className="delete-btn">
         x
       </button>
     </li>

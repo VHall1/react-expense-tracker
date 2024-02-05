@@ -1,6 +1,14 @@
-import { Transaction } from "./GlobalState";
+import type { Transaction } from "./GlobalState";
 
-const reducer = (state: any, action: any) => {
+type State = {
+  transactions: Transaction[];
+};
+
+type Action =
+  | { type: "DELETE_TRANSACTION"; payload: string }
+  | { type: "ADD_TRANSACTION"; payload: Transaction };
+
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "DELETE_TRANSACTION":
       return {

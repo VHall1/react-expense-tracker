@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import * as React from "react";
 import AppReducer from "./AppReducer";
 
 export interface Transaction {
@@ -7,18 +7,18 @@ export interface Transaction {
   amount: number;
 }
 
-const initialState = {
-  transactions: [],
-};
-
-export const GlobalContext = createContext<{
+const GlobalContext = React.createContext<{
   transactions: Transaction[];
-  deleteTransaction?: (id: string) => void;
-  addTransaction?: (transaction: Transaction) => void;
-}>(initialState);
+  deleteTransaction: (id: string) => void;
+  addTransaction: (transaction: Transaction) => void;
+} | null>(null);
 
-export const GlobalProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+export const GlobalProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
+  const [state, dispatch] = React.useReducer(AppReducer, {
+    transactions: [],
+  });
 
   const deleteTransaction = (id: string) => {
     dispatch({
@@ -45,4 +45,14 @@ export const GlobalProvider: React.FC = ({ children }) => {
       {children}
     </GlobalContext.Provider>
   );
+};
+
+export const useGlobalContext = () => {
+  const ctx = React.useContext(GlobalContext);
+
+  if (!ctx) {
+    throw new Error("useGlobalContext must be used within GlobalProvider");
+  }
+
+  return ctx;
 };
